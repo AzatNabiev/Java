@@ -1,3 +1,0 @@
-INSERT INTO users ( first_name, last_name, age, email, password, role) VALUES ('Azatiks', 'Nabievos', 20, 'azat.nabiev991@gmail.com', '$2a$10$hCKMEOgqguHjLLdAQH0RZeRQ/VDZUIUfaq9BZ1dxti2/5IgUtsDm2', 1);
-INSERT INTO users ( first_name, last_name, age, email, password, role) VALUES ('asasaa', 'asasasaa', 20, 'test3@mail.com', '$2a$10$HC45ii7ycoJclN8xbbPze.neixlM2Sgg52gFYI2cGJ8OlfgucVrP6', 2);
-INSERT INTO users ( first_name, last_name, age, email, password, role) VALUES ('asasas', 'asasasa', 25, 'test4@gmail.com', '$2a$10$vh4yWullot2rxztSQYK/TOn7Oq85U4T8Q7iWsP3m7pw73GTWZ03U2', 2);
