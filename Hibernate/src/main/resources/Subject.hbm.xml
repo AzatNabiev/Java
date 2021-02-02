@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="ru.itis.javalab.hibernate.models.Subject" table="subjects">
+        <id name="id" type="java.lang.Long">
+            <generator class="identity"/>
+        </id>
+        <property name="subjectName"/>
+
+        <many-to-one name="mentor">
+            <column name="mentor_id"/>
+        </many-to-one>
+
+    </class>
+</hibernate-mapping>

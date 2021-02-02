@@ -1,5 +1,8 @@
 # Java
-pet project
+pet projects
 
-Project on:
+Project SpringMVC on:
 Spring MVC, Spring JDBC Tempalte, Freemarker, PostgreSQL;
+
+Project Hibernate on:
+Just Hibernate
