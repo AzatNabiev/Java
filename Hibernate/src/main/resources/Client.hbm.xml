@@ -11,10 +11,7 @@
 
         <property name="name"/>
 
-        <set name="orders" table="client_orders">
-            <key column="client_id"/>
-            <many-to-many column="order_id" class="ru.itis.javalab.hibernate.models.Order"/>
-        </set>
+
 
     </class>
 </hibernate-mapping>
