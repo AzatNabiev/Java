@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="ru.itis.javalab.hibernate.models.Order" table="orders">
+        <id name="id" type="java.lang.Long">
+            <generator class="identity"/>
+        </id>
+        <property name="name"/>
+
+        <set name="clients" table="client_orders">
+            <key column="order_id"/>
+            <many-to-many column="client_id" class="ru.itis.javalab.hibernate.models.Client"/>
+        </set>
+        <set name="types">
+            <key column="order_id"/>
+            <one-to-many class="ru.itis.javalab.hibernate.models.Type"/>
+        </set>
+
+    </class>
+</hibernate-mapping>

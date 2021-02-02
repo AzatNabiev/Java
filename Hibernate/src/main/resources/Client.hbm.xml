@@ -4,15 +4,16 @@
         "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-    <class name="ru.itis.javalab.hibernate.models.Mentor" table="mentors">
+    <class name="ru.itis.javalab.hibernate.models.Client" table="clients">
         <id name="id" type="java.lang.Long">
             <generator class="identity"/>
         </id>
+
         <property name="name"/>
 
-        <set name="subjects">
-            <key column="mentor_id"></key>
-            <one-to-many class="ru.itis.javalab.hibernate.models.Subject"/>
+        <set name="orders" table="client_orders">
+            <key column="client_id"/>
+            <many-to-many column="order_id" class="ru.itis.javalab.hibernate.models.Order"/>
         </set>
 
     </class>
