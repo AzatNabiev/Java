@@ -42,7 +42,7 @@ public class SignUp {
         if (user.isPresent() && bCrypterService.checkPass(password, user.get().getPassword().trim())) {
             HttpSession httpsession = req.getSession(true);
             httpsession.setAttribute("user", user.get());
-            if (user.get().getRole()==2) {
+            if (user.get().getRole().getId()==2) {
                 return "redirect:/userPage";
             }else{
                 return "redirect:/adminPage";

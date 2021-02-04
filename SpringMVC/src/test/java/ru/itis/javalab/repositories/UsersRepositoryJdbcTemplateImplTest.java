@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import ru.itis.javalab.configuration.TestApplicationConfig;
+import ru.itis.javalab.models.Role;
 import ru.itis.javalab.models.User;
 import javax.sql.DataSource;
 import java.util.List;
@@ -21,10 +22,10 @@ class UsersRepositoryJdbcTemplateImplTest {
             .id(3L)
             .firstName("asasas")
             .lastName("asasasa")
-            .age(25)
+            .age(25L)
             .email("test4@gmail.com")
             .password("$2a$10$vh4yWullot2rxztSQYK/TOn7Oq85U4T8Q7iWsP3m7pw73GTWZ03U2")
-            .role(2)
+            .role(Role.builder().build())
             .build();
 
     UsersRepositoryJdbcTemplateImpl usersRepository;

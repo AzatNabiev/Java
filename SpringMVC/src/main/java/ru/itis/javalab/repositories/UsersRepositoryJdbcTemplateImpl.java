@@ -12,6 +12,7 @@ import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
+import ru.itis.javalab.models.Role;
 import ru.itis.javalab.models.User;
 
 import javax.sql.DataSource;
@@ -77,8 +78,8 @@ public class UsersRepositoryJdbcTemplateImpl implements UsersRepository {
             .lastName(row.getString("last_name"))
             .email(row.getString("email"))
             .password(row.getString("password"))
-            .age(row.getInt("age"))
-            .role(row.getInt("role"))
+            .age(row.getLong("age"))
+            .role((Role) row.getObject("role"))
             .build();
 
     @Override

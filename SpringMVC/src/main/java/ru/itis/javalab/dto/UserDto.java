@@ -18,7 +18,7 @@ public class UserDto {
     private String firstName;
     private String lastName;
     private String email;
-    private Integer age;
+    private Long age;
 
     public static UserDto from(User user){
         return UserDto.builder()
