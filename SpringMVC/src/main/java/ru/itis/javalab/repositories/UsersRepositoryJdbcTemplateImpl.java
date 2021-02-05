@@ -12,6 +12,7 @@ import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
+import ru.itis.javalab.models.Message;
 import ru.itis.javalab.models.Role;
 import ru.itis.javalab.models.User;
 
@@ -22,14 +23,9 @@ import java.util.*;
 @Repository
 @Qualifier(value = "userRepository")
 public class UsersRepositoryJdbcTemplateImpl implements UsersRepository {
-//    @Autowired
-//    @Qualifier(value = "jdbcTemplate")
+
     private JdbcTemplate jdbcTemplate;
-//    @Autowired
-//    @Qualifier(value="namedParameterJdbcTemplate")
     private NamedParameterJdbcTemplate namedJdbcTemplate;
-//
-//    @Autowired
     private SimpleJdbcInsert simpleJdbcInsert;
     private DataSource dataSource;
 
