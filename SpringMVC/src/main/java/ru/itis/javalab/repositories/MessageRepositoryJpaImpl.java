@@ -2,6 +2,7 @@ package ru.itis.javalab.repositories;
 
 
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.Transactional;
 import ru.itis.javalab.models.Message;
 import javax.persistence.EntityManager;
@@ -22,6 +23,7 @@ public class MessageRepositoryJpaImpl implements MessageRepository {
     }
 
     @Override
+    @Transactional
     public void update(Message entity) {
             entityManager.createQuery("update Message message set message.text=:text where message.id=:id")
                     .setParameter("text", entity.getText())
@@ -29,6 +31,7 @@ public class MessageRepositoryJpaImpl implements MessageRepository {
     }
 
     @Override
+    @Transactional
     public void delete(Message entity) {
             entityManager.remove(entity);
     }
