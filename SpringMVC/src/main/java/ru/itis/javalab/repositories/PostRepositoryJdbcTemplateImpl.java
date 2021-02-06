@@ -19,13 +19,8 @@ import java.util.Optional;
 @Repository
 public class PostRepositoryJdbcTemplateImpl implements PostRepository {
 
-//    @Autowired
-//    @Qualifier(value = "jdbcTemplate")
     private JdbcTemplate jdbcTemplate;
-//    @Autowired
-//    @Qualifier(value="namedParameterJdbcTemplate")
     private NamedParameterJdbcTemplate namedJdbcTemplate;
-//    @Autowired
     private SimpleJdbcInsert simpleJdbcInsert;
 
     private DataSource dataSource;
@@ -36,12 +31,12 @@ public class PostRepositoryJdbcTemplateImpl implements PostRepository {
         namedJdbcTemplate=new NamedParameterJdbcTemplate(dataSource);
         simpleJdbcInsert=new SimpleJdbcInsert(dataSource);
     }
-
+    //TODO:дописать SQL запросы, методы и дописать тесты.
     //language=SQL
     public static final String SQL_FIND_ALL_BY_ID="SELECT * FROM user_content WHERE user_id=? order by id DESC";
 
     //language=SQL
-    private static final String SQL_DELETE_USER="DELETE from user_content where id=?";
+    private static final String SQL_DELETE_USER_CONTENT="DELETE from user_content where id=?";
 
     private RowMapper<PostDto> rowMapper=(row,i)-> PostDto.builder()
             .postId(row.getLong("id"))
@@ -94,7 +89,7 @@ public class PostRepositoryJdbcTemplateImpl implements PostRepository {
     @Override
     public void delete(Long postId) {
         try {
-            jdbcTemplate.update(SQL_DELETE_USER,postId);
+            jdbcTemplate.update(SQL_DELETE_USER_CONTENT,postId);
         }catch (EmptyResultDataAccessException e){
             throw new IllegalStateException(e);
         }

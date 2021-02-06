@@ -75,7 +75,7 @@ public class UsersRepositoryJdbcTemplateImpl implements UsersRepository {
             .email(row.getString("email"))
             .password(row.getString("password"))
             .age(row.getLong("age"))
-            .role((Role) row.getObject("role"))
+            .role(Role.builder().id(row.getLong("role")).build() )
             .build();
 
     @Override

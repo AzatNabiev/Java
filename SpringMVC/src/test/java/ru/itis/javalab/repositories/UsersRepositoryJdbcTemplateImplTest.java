@@ -25,7 +25,7 @@ class UsersRepositoryJdbcTemplateImplTest {
             .age(25L)
             .email("test4@gmail.com")
             .password("$2a$10$vh4yWullot2rxztSQYK/TOn7Oq85U4T8Q7iWsP3m7pw73GTWZ03U2")
-            .role(Role.builder().build())
+            .role(Role.builder().id(2L).build())
             .build();
 
     UsersRepositoryJdbcTemplateImpl usersRepository;
@@ -34,7 +34,7 @@ class UsersRepositoryJdbcTemplateImplTest {
     @BeforeEach
     void setUp() {
         ApplicationContext context = new AnnotationConfigApplicationContext(TestApplicationConfig.class);
-        usersRepository=new UsersRepositoryJdbcTemplateImpl(context.getBean(DataSource.class));
+        usersRepository=new UsersRepositoryJdbcTemplateImpl(context.getBean("dataSource",DataSource.class));
     }
 
     @Test
