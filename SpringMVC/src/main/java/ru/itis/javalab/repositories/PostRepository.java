@@ -6,7 +6,8 @@ import java.util.List;
 import java.util.Optional;
 
 public interface PostRepository extends CrudRepository<PostDto> {
-    Optional<PostDto> findPostByUserId(Long id);
-    List<PostDto> getAll(Long useId);
+    Optional<PostDto> findFirstPostByUserId(Long id);
+    List<PostDto> getAllById(Long useId);
     void delete(Long postId);
+    Optional<PostDto> findPostByPostId(Long id);
 }

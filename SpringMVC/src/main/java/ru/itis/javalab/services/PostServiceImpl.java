@@ -30,7 +30,7 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public List<PostDto> getAll(Long useId) {
-        return postRepository.getAll(useId);
+        return postRepository.getAllById(useId);
     }
 
     @Override

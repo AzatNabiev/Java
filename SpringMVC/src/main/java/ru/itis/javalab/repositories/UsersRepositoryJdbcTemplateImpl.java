@@ -139,7 +139,6 @@ public class UsersRepositoryJdbcTemplateImpl implements UsersRepository {
     @Override
     public void update(User entity) {
         try {
-            System.out.println(entity.getPassword());
             jdbcTemplate.update(SQL_UPDATE_USER,entity.getFirstName(),entity.getLastName(),
                     entity.getEmail(),entity.getPassword(),entity.getAge(),entity.getId());
         } catch (EmptyResultDataAccessException e){
