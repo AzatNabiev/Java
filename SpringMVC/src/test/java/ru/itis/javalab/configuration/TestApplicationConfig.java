@@ -21,7 +21,7 @@ import java.util.Properties;
 @Configuration
 @ComponentScan("ru.itis.javalab.repositories")
 @EnableTransactionManagement
-@EnableJpaRepositories(basePackages = "ru.itis.javalab.models")
+@EnableJpaRepositories(basePackages = {"ru.itis.javalab.models","ru.itis.javalab.repositories"})
 public class TestApplicationConfig {
 
     @Bean

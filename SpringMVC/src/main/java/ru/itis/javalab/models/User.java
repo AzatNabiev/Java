@@ -50,4 +50,15 @@ public class User {
     private Set<Message> messages;
     @OneToMany(mappedBy = "creator")
     private Set<Room> createdRooms;
+
+
+    @Enumerated(value = EnumType.STRING)
+    private State state;
+
+    private String confirmCode;
+
+    public enum State{
+        CONFIRMED, NOT_CONFIRMED
+    }
+
 }

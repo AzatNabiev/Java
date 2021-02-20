@@ -3,6 +3,8 @@ package ru.itis.javalab.configuration;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
+import freemarker.template.Template;
+import freemarker.template.TemplateExceptionHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -10,7 +12,10 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
+import org.springframework.core.io.ClassRelativeResourceLoader;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.mail.MailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.Database;
@@ -19,6 +24,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.ui.freemarker.SpringTemplateLoader;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver;
 
@@ -28,9 +35,12 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 import java.util.Properties;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
+@EnableWebMvc
 @Configuration
-@PropertySource("classpath:db.properties")
+@PropertySource("classpath:application.properties")
 @ComponentScan(basePackages = "ru.itis.javalab")
 @EnableTransactionManagement
 @EnableJpaRepositories(basePackages = "ru.itis.javalab.repositories")
@@ -120,5 +130,39 @@ public class ApplicationConfig {
         properties.setProperty("hibernate.enable_lazy_load_no_trans", "true");
         return properties;
     }
+    @Bean
+    public ExecutorService executorService(){
+        return Executors.newCachedThreadPool();
+    }
 
+    @Bean
+    public MailSender mailSender(){
+        Properties properties = new Properties();
+        JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
+
+        mailSender.setPort(Integer.parseInt(environment.getProperty("spring.mail.port")));
+        mailSender.setHost(environment.getProperty("spring.mail.host"));
+        mailSender.setPassword(environment.getProperty("spring.mail.password"));
+        mailSender.setUsername(environment.getProperty("spring.mail.username"));
+
+        properties.setProperty("spring.mail.properties.mail.smtp.starttls.enable","true");
+        properties.setProperty("spring.mail.properties.mail.smtp.allow8bitmime","true");
+        properties.setProperty("spring.mail.properties.mail.smtp.ssl.trust","smtp.gmail.com");
+        properties.setProperty("spring.mail.properties.debug","true");
+
+        mailSender.setJavaMailProperties(properties);
+
+        return mailSender;
+    }
+
+    @Bean
+    public freemarker.template.Configuration configuration(){
+        freemarker.template.Configuration configuration = new freemarker.template.Configuration(freemarker.template.Configuration.VERSION_2_3_30);
+        configuration.setDefaultEncoding("UTF-8");
+        configuration.setTemplateLoader(
+                new SpringTemplateLoader(new ClassRelativeResourceLoader(this.getClass()),"/"));
+        configuration.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
+
+        return configuration;
+    }
 }

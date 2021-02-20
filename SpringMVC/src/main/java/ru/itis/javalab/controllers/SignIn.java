@@ -12,6 +12,7 @@ import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 import java.util.ArrayList;
 import java.util.Set;
+import java.util.UUID;
 
 @Controller
 public class SignIn {
@@ -34,6 +35,7 @@ public class SignIn {
             model.addAttribute("errors", constraintViolations);
             return "/signIn";
         } else {
+            user.setConfirmCode(UUID.randomUUID().toString());
             userService.save(user);
             return "redirect:/signUp";
         }

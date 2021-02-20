@@ -52,7 +52,7 @@ public class PostRepositoryJdbcTemplateImpl implements PostRepository {
 
     //language=SQL
     //TODO:дописать SQL
-    private static final String SQL_FIND_FIRST_POST_BY_USER_ID="select MIN(id), content,user_id from user_content where user_id=?;
+//    private static final String SQL_FIND_FIRST_POST_BY_USER_ID="select MIN(id), content,user_id from user_content where user_id=?;
 
     private RowMapper<PostDto> rowMapper=(row,i)-> PostDto.builder()
             .postId(row.getLong("id"))

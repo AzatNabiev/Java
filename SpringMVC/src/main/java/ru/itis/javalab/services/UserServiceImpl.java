@@ -2,11 +2,14 @@ package ru.itis.javalab.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.itis.javalab.dto.UserDto;
 import ru.itis.javalab.models.User;
 import ru.itis.javalab.repositories.UsersRepository;
+import ru.itis.javalab.util.EmailUtil;
+import ru.itis.javalab.util.MailsGenerator;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,6 +24,18 @@ public class UserServiceImpl implements UserService{
     @Autowired
     @Qualifier(value = "bcrypt")
     PasswordEncoder passwordEncoder;
+
+    @Autowired
+    MailsGenerator mailsGenerator;
+
+    @Value("${server.url}")
+    private String serverUrl;
+
+    @Value("${spring.mail.username}")
+    private String from;
+
+    @Autowired
+    private EmailUtil emailUtil;
 
     @Override
     public List<UserDto> getUsersByShablon(String shablon,Long id) {
@@ -72,6 +87,9 @@ public class UserServiceImpl implements UserService{
     public void save(User user) {
         String password=passwordEncoder.encode(user.getPassword());
         user.setPassword(password);
-        usersRepository.save(user);
+        //usersRepository.save(user);
+
+        String confirmMail = mailsGenerator.getMailForConfirm(serverUrl,user.getConfirmCode());
+        emailUtil.sendMail(user.getEmail(),"Registration", from, confirmMail);
     }
 }

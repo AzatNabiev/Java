@@ -2,6 +2,7 @@ package ru.itis.javalab.repositories;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Profile;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
@@ -20,6 +21,7 @@ import javax.sql.DataSource;
 import java.sql.Types;
 import java.util.*;
 
+@Profile("master")
 @Repository
 @Qualifier(value = "userRepository")
 public class UsersRepositoryJdbcTemplateImpl implements UsersRepository {
